@@ -31,6 +31,7 @@ namespace Compras
                 DaoProdutos dao = new DaoProdutos();
                 _LstProdutos = dao.Listar();
 
+                dgvProdutos.AutoGenerateColumns = false;
                 dgvProdutos.DataSource = _LstProdutos;
             }
             catch (Exception ex)

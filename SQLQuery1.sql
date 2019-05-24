@@ -1,1 +1,1 @@
-﻿INSERT INTO TBUsuarios (Nome, Login, Senha) VALUES ('Fernando Albuquerque', 'Fernando', '123456')
+﻿select * from tbcomanda
