@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dados\Dao.cs" />
+    <Compile Include="Dados\DaoComandas.cs" />
     <Compile Include="Dados\DaoProdutos.cs" />
     <Compile Include="Dados\DaoUsuarios.cs" />
     <Compile Include="Entidades\Comanda.cs" />

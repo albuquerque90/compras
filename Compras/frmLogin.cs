@@ -14,6 +14,8 @@ namespace Compras
 {
     public partial class frmLogin : Form
     {
+        public static Usuario _Usuario = null;
+
         public frmLogin()
         {
             InitializeComponent();
@@ -26,16 +28,17 @@ namespace Compras
                 if (!string.IsNullOrEmpty(txtLogin.Text) && !string.IsNullOrEmpty(txtSenha.Text))
                 {
                     DaoUsuarios dao = new DaoUsuarios();
-                    var login = dao.Login(txtLogin.Text, txtSenha.Text);
+                    _Usuario = dao.Login(txtLogin.Text, txtSenha.Text);
 
-                    if (login.Id > 0)
-                    {
-                        
+                    if (_Usuario.Id > 0)
+                    {                        
                         frmProdutos f = new frmProdutos();
                         f.Show();
+                        
                     }
                     else
-                        MessageBox.Show("Não achou");
+                        MessageBox.Show("Login ou senha inválidos", "Alerta", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
@@ -45,8 +48,8 @@ namespace Compras
             }
             catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show(ex.Message, "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

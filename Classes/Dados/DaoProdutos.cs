@@ -22,39 +22,31 @@ namespace Classes.Dados
 
         public override IEnumerable<Produto> Listar()
         {
-            try
+            List<Produto> lista = new List<Produto>();
+            using (cn = new SqlConnection(url))
             {
-                List<Produto> lista = new List<Produto>();
-                using (cn = new SqlConnection(url))
+                using (cmd = new SqlCommand())
                 {
-                    using (cmd = new SqlCommand())
+                    cn.Open();
+                    cmd.Connection = cn;
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.CommandText = "SELECT * FROM TBProdutos";
+                    reader = cmd.ExecuteReader();
+                    while (reader.Read())
                     {
-                        cn.Open();
-                        cmd.Connection = cn;
-                        cmd.CommandType = System.Data.CommandType.Text;
-                        cmd.CommandText = "SELECT * FROM TBProdutos";
-                        reader = cmd.ExecuteReader();
-                        while (reader.Read())
+                        Produto produto = new Produto()
                         {
-                            Produto produto = new Produto()
-                            {
-                                Id = (int)reader["Id"],
-                                Nome = reader["Nome"].ToString(),
-                                Valor = float.Parse(reader["Valor"].ToString()),
-                                Detalhe = reader["Detalhes"].ToString()
+                            Id = (int)reader["Id"],
+                            Nome = reader["Nome"].ToString(),
+                            Valor = float.Parse(reader["Valor"].ToString()),
+                            Detalhe = reader["Detalhes"].ToString()
 
-                            };
-                            lista.Add(produto);
-                        }
+                        };
+                        lista.Add(produto);
                     }
                 }
-                return lista;
             }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
+            return lista;
         }
     }
 }

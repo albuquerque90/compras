@@ -1,4 +1,5 @@
 ﻿using Classes.Dados;
+using Classes.Entidades;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +14,11 @@ namespace Compras
 {
     public partial class frmProdutos : Form
     {
+        #region Globais
+        public static Produto _Produto = null;
+        public IEnumerable<Produto> _LstProdutos { get; set; }
+        #endregion
+
         public frmProdutos()
         {
             InitializeComponent();
@@ -23,13 +29,42 @@ namespace Compras
             try
             {
                 DaoProdutos dao = new DaoProdutos();
-                var lstProdutos = dao.Listar();
+                _LstProdutos = dao.Listar();
 
-                dgvProdutos.DataSource = lstProdutos;
+                dgvProdutos.DataSource = _LstProdutos;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvProdutos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvProdutos.SelectedCells.Count > 0)
+            {
+                int selectedrowindex = dgvProdutos.SelectedCells[0].RowIndex;
+
+                DataGridViewRow selectedRow = dgvProdutos.Rows[selectedrowindex];
+
+                int IdProduto = Convert.ToInt32(selectedRow.Cells[1].Value);
+
+                _Produto = _LstProdutos.Where(p => p.Id == IdProduto).First();
+            }
+        }
+
+        private void btnDetalhesProduto_Click(object sender, EventArgs e)
+        {
+            if (_Produto != null)
+            {
+                frmProdutoDetalhes frm = new frmProdutoDetalhes();
+                frm.Show();
+
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Selecione um produto", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }
