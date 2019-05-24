@@ -30,11 +30,10 @@
         {
             this.dgvProdutos = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnDetalhesProduto = new System.Windows.Forms.Button();
             this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colValor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colDetalhes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnAbrirComanda = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProdutos)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -45,14 +44,16 @@
             this.dgvProdutos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colId,
             this.colNome,
-            this.colValor,
-            this.colDetalhes});
+            this.colValor});
             this.dgvProdutos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvProdutos.Location = new System.Drawing.Point(3, 16);
             this.dgvProdutos.Name = "dgvProdutos";
+            this.dgvProdutos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvProdutos.Size = new System.Drawing.Size(828, 267);
             this.dgvProdutos.TabIndex = 0;
+            this.dgvProdutos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvProdutos_CellClick);
             this.dgvProdutos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProdutos_CellContentClick);
+            this.dgvProdutos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvProdutos_CellDoubleClick);
             // 
             // groupBox1
             // 
@@ -63,17 +64,7 @@
             this.groupBox1.Size = new System.Drawing.Size(834, 286);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Produtos";
-            // 
-            // btnDetalhesProduto
-            // 
-            this.btnDetalhesProduto.Location = new System.Drawing.Point(25, 304);
-            this.btnDetalhesProduto.Name = "btnDetalhesProduto";
-            this.btnDetalhesProduto.Size = new System.Drawing.Size(141, 23);
-            this.btnDetalhesProduto.TabIndex = 4;
-            this.btnDetalhesProduto.Text = "Detalhes do Produto";
-            this.btnDetalhesProduto.UseVisualStyleBackColor = true;
-            this.btnDetalhesProduto.Click += new System.EventHandler(this.btnDetalhesProduto_Click);
+            this.groupBox1.Text = "Clique duplo do produto para mais detalhes";
             // 
             // colId
             // 
@@ -84,6 +75,7 @@
             // 
             // colNome
             // 
+            this.colNome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.colNome.DataPropertyName = "Nome";
             this.colNome.HeaderText = "Nome";
             this.colNome.Name = "colNome";
@@ -94,19 +86,21 @@
             this.colValor.HeaderText = "Valor";
             this.colValor.Name = "colValor";
             // 
-            // colDetalhes
+            // btnAbrirComanda
             // 
-            this.colDetalhes.DataPropertyName = "Detalhes";
-            this.colDetalhes.HeaderText = "Detalhes 231321";
-            this.colDetalhes.Name = "colDetalhes";
-            this.colDetalhes.Visible = false;
+            this.btnAbrirComanda.Location = new System.Drawing.Point(692, 338);
+            this.btnAbrirComanda.Name = "btnAbrirComanda";
+            this.btnAbrirComanda.Size = new System.Drawing.Size(130, 23);
+            this.btnAbrirComanda.TabIndex = 2;
+            this.btnAbrirComanda.Text = "Abrir Minha Comanda";
+            this.btnAbrirComanda.UseVisualStyleBackColor = true;
             // 
             // frmProdutos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(834, 341);
-            this.Controls.Add(this.btnDetalhesProduto);
+            this.ClientSize = new System.Drawing.Size(834, 373);
+            this.Controls.Add(this.btnAbrirComanda);
             this.Controls.Add(this.groupBox1);
             this.Name = "frmProdutos";
             this.Text = "Nossos Produtos";
@@ -121,10 +115,9 @@
 
         private System.Windows.Forms.DataGridView dgvProdutos;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btnDetalhesProduto;
         private System.Windows.Forms.DataGridViewTextBoxColumn colId;
         private System.Windows.Forms.DataGridViewTextBoxColumn colNome;
         private System.Windows.Forms.DataGridViewTextBoxColumn colValor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colDetalhes;
+        private System.Windows.Forms.Button btnAbrirComanda;
     }
 }

@@ -18,7 +18,6 @@ namespace Compras
         {
             InitializeComponent();
 
-            txtId.Text = frmProdutos._Produto.Id.ToString();
             txtNome.Text = frmProdutos._Produto.Nome;
             txtValor.Text = frmProdutos._Produto.Valor.ToString();
             txtDetalhe.Text = frmProdutos._Produto.Detalhe;
@@ -33,7 +32,7 @@ namespace Compras
                     Comanda comanda = new Comanda()
                     {
                         Usuario = new Usuario() { Id = frmLogin._Usuario.Id, Nome = frmLogin._Usuario.Nome },
-                        Produto = new Produto() { Id = Convert.ToInt32(txtId.Text), Nome = txtNome.Text, Valor = float.Parse(txtValor.Text) },
+                        Produto = new Produto() { Id = Convert.ToInt32(frmProdutos._Produto.Id), Nome = txtNome.Text, Valor = float.Parse(txtValor.Text) },
                         Quantidade = Convert.ToInt32(txtQuantidade.Text)
                     };
 
@@ -57,6 +56,12 @@ namespace Compras
             {
                 e.Handled = true;
             }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            frmProdutos frm = new frmProdutos();
+            frm.Show();
         }
     }
 }

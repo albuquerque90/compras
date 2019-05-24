@@ -42,16 +42,7 @@ namespace Compras
 
         private void dgvProdutos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvProdutos.SelectedCells.Count > 0)
-            {
-                int selectedrowindex = dgvProdutos.SelectedCells[0].RowIndex;
-
-                DataGridViewRow selectedRow = dgvProdutos.Rows[selectedrowindex];
-
-                int IdProduto = Convert.ToInt32(selectedRow.Cells[1].Value);
-
-                _Produto = _LstProdutos.Where(p => p.Id == IdProduto).First();
-            }
+            
         }
 
         private void btnDetalhesProduto_Click(object sender, EventArgs e)
@@ -66,6 +57,30 @@ namespace Compras
             else
             {
                 MessageBox.Show("Selecione um produto", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void DgvProdutos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
+
+        private void DgvProdutos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvProdutos.SelectedCells.Count > 0)
+            {
+                int selectedrowindex = dgvProdutos.SelectedCells[0].RowIndex;
+
+                DataGridViewRow selectedRow = dgvProdutos.Rows[selectedrowindex];
+
+                int IdProduto = Convert.ToInt32(selectedRow.Cells[0].Value);
+
+                _Produto = _LstProdutos.Where(p => p.Id == IdProduto).First();
+
+                frmProdutoDetalhes frm = new frmProdutoDetalhes();
+                frm.Show();
+
+                Close();
             }
         }
     }
