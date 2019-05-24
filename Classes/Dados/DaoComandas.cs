@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,7 +37,35 @@ namespace Classes.Dados
 
         public override IEnumerable<Comanda> Listar()
         {
-            throw new NotImplementedException();
+            List<Comanda> lista = new List<Comanda>();
+            using (cn = new SqlConnection(url))
+            {
+                using (cmd = new SqlCommand())
+                {
+                    cn.Open();
+                    cmd.Connection = cn;
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.CommandText = @"SELECT p.Nome AS Produto, p.Valor, c.Quantidade FROM TBComanda c
+                                            join TBUsuarios u on c.IdUsuario = u.Id
+                                            join TBProdutos p on c.IdProduto = p.Id";
+                    reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Comanda comanda = new Comanda()
+                        {
+                            Produto = new Produto()
+                            {
+                                Nome = reader["Produto"].ToString(),
+                                Valor = Convert.ToDecimal(reader["Valor"], CultureInfo.InvariantCulture.NumberFormat)
+                            },
+                            Quantidade = Convert.ToInt32(reader["Quantidade"])
+
+                        };
+                        lista.Add(comanda);
+                    }
+                }
+            }
+            return lista;
         }
     }
 }

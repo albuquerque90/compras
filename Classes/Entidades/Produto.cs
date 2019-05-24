@@ -10,7 +10,7 @@ namespace Classes.Entidades
     {
         public int Id { get; set; }
         public string Nome { get; set; }
-        public float Valor { get; set; }
+        public decimal Valor { get; set; }
         public string Detalhe { get; set; }
     }
 }

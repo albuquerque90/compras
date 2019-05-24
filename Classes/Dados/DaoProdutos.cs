@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,7 +39,7 @@ namespace Classes.Dados
                         {
                             Id = (int)reader["Id"],
                             Nome = reader["Nome"].ToString(),
-                            Valor = float.Parse(reader["Valor"].ToString()),
+                            Valor = Convert.ToDecimal(reader["Valor"], CultureInfo.InvariantCulture.NumberFormat),
                             Detalhe = reader["Detalhes"].ToString()
 
                         };

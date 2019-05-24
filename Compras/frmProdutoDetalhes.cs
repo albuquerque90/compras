@@ -32,7 +32,7 @@ namespace Compras
                     Comanda comanda = new Comanda()
                     {
                         Usuario = new Usuario() { Id = frmLogin._Usuario.Id, Nome = frmLogin._Usuario.Nome },
-                        Produto = new Produto() { Id = Convert.ToInt32(frmProdutos._Produto.Id), Nome = txtNome.Text, Valor = float.Parse(txtValor.Text) },
+                        Produto = new Produto() { Id = Convert.ToInt32(frmProdutos._Produto.Id), Nome = txtNome.Text, Valor = Convert.ToDecimal(txtValor.Text) },
                         Quantidade = Convert.ToInt32(txtQuantidade.Text)
                     };
 

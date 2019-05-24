@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.dgvProdutos = new System.Windows.Forms.DataGridView();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colValor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnAbrirComanda = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProdutos)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -55,17 +55,6 @@
             this.dgvProdutos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProdutos_CellContentClick);
             this.dgvProdutos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvProdutos_CellDoubleClick);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.dgvProdutos);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(834, 286);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Clique duplo do produto para mais detalhes";
-            // 
             // colId
             // 
             this.colId.DataPropertyName = "Id";
@@ -86,6 +75,17 @@
             this.colValor.HeaderText = "Valor";
             this.colValor.Name = "colValor";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.dgvProdutos);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(834, 286);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Clique duplo do produto para mais detalhes";
+            // 
             // btnAbrirComanda
             // 
             this.btnAbrirComanda.Location = new System.Drawing.Point(692, 338);
@@ -94,6 +94,7 @@
             this.btnAbrirComanda.TabIndex = 2;
             this.btnAbrirComanda.Text = "Abrir Minha Comanda";
             this.btnAbrirComanda.UseVisualStyleBackColor = true;
+            this.btnAbrirComanda.Click += new System.EventHandler(this.BtnAbrirComanda_Click);
             // 
             // frmProdutos
             // 

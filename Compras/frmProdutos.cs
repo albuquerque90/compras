@@ -83,5 +83,11 @@ namespace Compras
                 Close();
             }
         }
+
+        private void BtnAbrirComanda_Click(object sender, EventArgs e)
+        {
+            frmMinhaComanda frm = new frmMinhaComanda();
+            frm.Show();
+        }
     }
 }
