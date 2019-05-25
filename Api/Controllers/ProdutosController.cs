@@ -24,34 +24,24 @@ namespace Api.Controllers
             }
             catch
             {
-
                 return BadRequest();
             }
         }
 
         //GET api/produtos/1
-        public Produto GetProduto(int id)
+        public IHttpActionResult GetProduto(int id)
         {
-            DaoProdutos dao = new DaoProdutos();
-            var Produto = dao.Buscar(id);
+            try
+            {
+                DaoProdutos dao = new DaoProdutos();
+                var Produto = dao.Buscar(id);
 
-            return Produto;
+                return Ok(Produto);
+            }
+            catch 
+            {
+                return BadRequest();
+            }
         }
-
-        public void Login()
-        {
-
-        }
-
-        [HttpPost]
-        public void IncluiProduto()
-        {
-
-        }
-
-        //public void GetComanda()
-        //{
-
-        //}
     }
 }

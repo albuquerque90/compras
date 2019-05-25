@@ -45,7 +45,7 @@ namespace Classes.Dados
                     cn.Open();
                     cmd.Connection = cn;
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = @"SELECT p.Nome AS Produto, p.Valor, c.Quantidade FROM TBComanda c
+                    cmd.CommandText = @"SELECT c.Id AS IdComanda, u.Nome AS Usuario, u.Login, p.Nome AS Produto, p.Valor, p.Detalhes, c.Quantidade FROM TBComanda c
                                             join TBUsuarios u on c.IdUsuario = u.Id
                                             join TBProdutos p on c.IdProduto = p.Id";
                     reader = cmd.ExecuteReader();
@@ -53,10 +53,17 @@ namespace Classes.Dados
                     {
                         Comanda comanda = new Comanda()
                         {
+                            Id = Convert.ToInt32(reader["IdComanda"]),
+                            Usuario = new Usuario()
+                            {
+                                Login = reader["Login"].ToString(),
+                                Nome = reader["Usuario"].ToString()
+                            },
                             Produto = new Produto()
                             {
                                 Nome = reader["Produto"].ToString(),
-                                Valor = Convert.ToDecimal(reader["Valor"], CultureInfo.InvariantCulture.NumberFormat)
+                                Valor = Convert.ToDecimal(reader["Valor"], CultureInfo.InvariantCulture.NumberFormat),
+                                Detalhe = reader["Detalhes"].ToString()
                             },
                             Quantidade = Convert.ToInt32(reader["Quantidade"])
 

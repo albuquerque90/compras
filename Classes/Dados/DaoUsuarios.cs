@@ -26,7 +26,7 @@ namespace Classes.Dados
                     cn.Open();
                     cmd.Connection = cn;
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = "SELECT * FROM TBUsuarios WHERE Login = @Id AND Senha = @Senha";
+                    cmd.CommandText = "SELECT Id, Nome, Login FROM TBUsuarios WHERE Login = @Id AND Senha = @Senha";
                     cmd.Parameters.Clear();
                     cmd.Parameters.AddWithValue("@Id", Login);
                     cmd.Parameters.AddWithValue("@Senha", Senha);
@@ -37,8 +37,7 @@ namespace Classes.Dados
                         {
                             Id = (int)reader["Id"],
                             Nome = reader["Nome"].ToString(),
-                            Login = reader["Login"].ToString(),
-                            Senha = reader["Senha"].ToString(),
+                            Login = reader["Login"].ToString()
                         };
 
                         retorno = usuarioDB;
