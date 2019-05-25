@@ -1,6 +1,7 @@
 ﻿using Classes.Entidades;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
@@ -16,6 +17,49 @@ namespace Classes.Dados
             throw new NotImplementedException();
         }
 
+        public List<Comanda> BuscarComandaUsuario(int Id)
+        {
+            List<Comanda> lista = new List<Comanda>();
+            using (cn = new SqlConnection(url))
+            {
+                using (cmd = new SqlCommand())
+                {
+                    cn.Open();
+                    cmd.Connection = cn;
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.CommandText = @"SELECT c.Id AS IdComanda, u.Nome AS Usuario, u.Login, p.Nome AS Produto, p.Valor, p.Detalhes, c.Quantidade FROM TBComanda c
+                                            join TBUsuarios u on c.IdUsuario = u.Id
+                                            join TBProdutos p on c.IdProduto = p.Id
+                                            WHERE u.idUsuario = @Id";
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@Id", Id);
+                    reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Comanda comanda = new Comanda()
+                        {
+                            Id = Convert.ToInt32(reader["IdComanda"]),
+                            Usuario = new Usuario()
+                            {
+                                Login = reader["Login"].ToString(),
+                                Nome = reader["Usuario"].ToString()
+                            },
+                            Produto = new Produto()
+                            {
+                                Nome = reader["Produto"].ToString(),
+                                Valor = Convert.ToDecimal(reader["Valor"], CultureInfo.InvariantCulture.NumberFormat),
+                                Detalhe = reader["Detalhes"].ToString()
+                            },
+                            Quantidade = Convert.ToInt32(reader["Quantidade"])
+
+                        };
+                        lista.Add(comanda);
+                    }
+                }
+            }
+            return lista;
+        }
+
         public override void Incluir(Comanda entidade)
         {
             using (cn = new SqlConnection(url))
@@ -25,12 +69,13 @@ namespace Classes.Dados
                     cn.Open();
                     cmd.Connection = cn;
                     cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.CommandText = "INSERT INTO TBComanda (IdUsuario,IdProduto,Quantidade) VALUES (@IdUsuario,@IdProduto,@Quantidade)";
+                    cmd.CommandText = "INSERT INTO TBComanda (IdUsuario,IdProduto,Quantidade) output INSERTED.ID VALUES (@IdUsuario,@IdProduto,@Quantidade)";
                     cmd.Parameters.Clear();
                     cmd.Parameters.AddWithValue("@IdUsuario", entidade.Usuario.Id);
                     cmd.Parameters.AddWithValue("@IdProduto", entidade.Produto.Id);
                     cmd.Parameters.AddWithValue("@Quantidade", entidade.Quantidade);
-                    cmd.ExecuteNonQuery();
+                     
+                    entidade.Id = (int)cmd.ExecuteScalar();
                 }
             }
         }

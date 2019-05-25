@@ -11,13 +11,13 @@ namespace Api.Controllers
 {
     public class ComandaController : ApiController
     {
-        //GET api/comanda
-        public IHttpActionResult GetProdutosComanda()
+        //GET api/comanda/1
+        public IHttpActionResult GetProdutosComanda(int idUsuario)
         {
             try
             {
                 DaoComandas dao = new DaoComandas();
-                var LstProdutosComanda = dao.Listar();
+                var LstProdutosComanda = dao.BuscarComandaUsuario(idUsuario);
 
                 return Ok(LstProdutosComanda);
             }
