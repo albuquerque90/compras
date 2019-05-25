@@ -1,1 +1,1 @@
-﻿select * from TBUsuarios
+﻿select * from TBComanda

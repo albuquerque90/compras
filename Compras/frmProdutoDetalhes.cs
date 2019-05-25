@@ -39,6 +39,7 @@ namespace Compras
                     DaoComandas dao = new DaoComandas();
                     dao.Incluir(comanda);
                     MessageBox.Show("Produto Incluído na comanda", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
                 }
                 else
                     MessageBox.Show("Informe a quantidade", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
