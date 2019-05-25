@@ -12,7 +12,7 @@ namespace Api.Controllers
     public class ValuesController : ApiController
     {
         // GET api/values
-        public IEnumerable<Produto> Get()
+        public IEnumerable<Produto> GetProdutos()
         {
             DaoProdutos dao = new DaoProdutos();
             var LstProdutos = dao.Listar();
@@ -21,7 +21,7 @@ namespace Api.Controllers
         }
 
         // GET api/values/5
-        public string Get(int id)
+        public string GetProduto(int id)
         {
             return "value";
         }
