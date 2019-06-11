@@ -1,11 +1,13 @@
 ﻿using Classes.Dados;
 using Classes.Entidades;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -28,11 +30,7 @@ namespace Compras
         {
             try
             {
-                DaoProdutos dao = new DaoProdutos();
-                _LstProdutos = dao.Listar();
-
-                dgvProdutos.AutoGenerateColumns = false;
-                dgvProdutos.DataSource = _LstProdutos;
+                GetAllProdutos();
             }
             catch (Exception ex)
             {
@@ -42,7 +40,7 @@ namespace Compras
 
         private void dgvProdutos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
         }
 
         private void btnDetalhesProduto_Click(object sender, EventArgs e)
@@ -62,7 +60,7 @@ namespace Compras
 
         private void DgvProdutos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
         }
 
         private void DgvProdutos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -88,6 +86,29 @@ namespace Compras
         {
             frmMinhaComanda frm = new frmMinhaComanda();
             frm.Show();
+        }
+
+        private async void GetAllProdutos()
+        {
+            using (var client = new HttpClient())
+            {
+                using (var response = await client.GetAsync("https://localhost:44339/api/produtos"))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var ProdutoJsonString = await response.Content.ReadAsStringAsync();
+
+
+                        _LstProdutos = JsonConvert.DeserializeObject<Produto[]>(ProdutoJsonString).ToList();
+                        dgvProdutos.AutoGenerateColumns = false;
+                        dgvProdutos.DataSource = _LstProdutos;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Não foi possível obter o produto : " + response.StatusCode);
+                    }
+                }
+            }
         }
     }
 }
